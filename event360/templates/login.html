@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Event 360 SUITE</title>
+
+    <!-- Linking External CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+    <style>
+        /* General Styles */
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Video Background */
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        #bg-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Centered Login/Signup Container */
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+        }
+
+        /* Login/Signup Box with Transparent Background */
+        .login-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 100%;
+            backdrop-filter: blur(10px);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        /* Input Field Styles */
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        /* Button Styles */
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        /* Link to Switch Between Login and Signup */
+        .switch-link {
+            margin-top: 15px;
+            color: #00bfff;
+            cursor: pointer;
+        }
+
+        .switch-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Hide the Signup Box Initially */
+        #signup-box {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background Video Section -->
+    <div class="video-container">
+        <video autoplay muted loop id="bg-video">
+            <!-- Corrected path to the video -->
+            <source src="{{ url_for('static', filename='videos/WhatsApp Video 2025-03-23 at 12.34.59_c2ec5fee.mp4') }}" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video>
+    </div>
+
+    <!-- Main Container with Centered Login/Signup Box -->
+    <div class="container">
+        <!-- Login Box -->
+        <div class="login-container" id="login-box">
+            <h2>Login</h2>
+            <form action="{{ url_for('login') }}" method="POST" id="login-form">
+                <input type="email" name="email" class="input-field" placeholder="Email" required>
+                <input type="password" name="password" class="input-field" placeholder="Password" required>
+                <button type="submit" class="btn">Login</button>
+            </form>
+            <p class="switch-link" onclick="toggleForm('signup')">Don't have an account? Sign Up</p>
+        </div>
+
+        <p><strong>Admin Access?</strong> <a href="{{ url_for('admin_login') }}">Login as Admin</a></p>
+
+        <!-- Signup Box -->
+        <div class="login-container" id="signup-box">
+            <h2>Sign Up</h2>
+            <form action="{{ url_for('signup') }}" method="POST" id="signup-form" onsubmit="return validateSignup()">
+                <input type="text" name="signup-name" class="input-field" placeholder="Full Name" required>
+                <input type="email" name="signup-email" class="input-field" placeholder="Email" required>
+                <input type="password" name="signup-password" id="signup-password" class="input-field"
+                    placeholder="Create Password" required>
+                <input type="password" name="confirm-password" id="confirm-password" class="input-field"
+                    placeholder="Confirm Password" required>
+                <button type="submit" class="btn">Create Account</button>
+            </form>
+            <p class="switch-link" onclick="toggleForm('login')">Already have an account? Login</p>
+        </div>
+    </div>
+
+    <!-- JavaScript for Form Switching & Validation -->
+    <script>
+        // Switch Between Login and Signup Forms
+        function toggleForm(formType) {
+            if (formType === 'signup') {
+                document.getElementById('login-box').style.display = 'none';
+                document.getElementById('signup-box').style.display = 'block';
+            } else {
+                document.getElementById('login-box').style.display = 'block';
+                document.getElementById('signup-box').style.display = 'none';
+            }
+        }
+
+        // Validate Signup Form (Check Password Match)
+        function validateSignup() {
+            const password = document.getElementById('signup-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match. Please try again!');
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+</body>
+
+</html>

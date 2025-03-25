@@ -1,0 +1,68 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    text-align: center;
+}
+
+header {
+    background: #007bff;
+    color: white;
+    padding: 20px;
+    font-size: 24px;
+}
+
+.event-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.event-card {
+    background: white;
+    padding: 20px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    display: flex; /* Align image and text side by side */
+    align-items: center; /* Align vertically center */
+    gap: 20px; /* Space between image and content */
+}
+
+.event-card img {
+    width: 300px; /* Rectangle width */
+    height: 180px; /* Rectangle height */
+    border-radius: 8px; /* Slightly rounded corners */
+    object-fit: cover; /* Crop and maintain aspect ratio */
+    display: block;
+}
+
+.event-card h2 {
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.btn {
+    padding: 10px 15px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn-danger {
+    background: #dc3545;
+}
+
+.register-btn {
+    padding: 10px 15px;
+    background: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    display: inline-block;
+}

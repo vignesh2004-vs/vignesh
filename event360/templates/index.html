@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event 360 SUITE</title>
+
+    <!-- Linking external stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+    <style>
+        /* General Styles */
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* Video Background */
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        #bg-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Main Content */
+        .content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: white;
+        }
+
+        /* Logo Container */
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .logo {
+            width: 100px;
+            height: auto;
+        }
+
+        /* Login Button */
+        .login-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        /* Notifications Container */
+        .notifications {
+            position: absolute;
+            width: 250px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 15px;
+            border-radius: 10px;
+            color: white;
+            left: 20px;
+            top: 100px;
+        }
+
+        /* Chat Container */
+        .chat-container {
+            position: absolute;
+            right: 20px;
+            bottom: 50px;
+            width: 250px;
+            padding: 15px;
+            border-radius: 10px;
+            color: white;
+            background: transparent;
+            border: 2px solid white;
+        }
+
+        .chat-window {
+            height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: black;
+        }
+
+        /* Chat Input */
+        #chat-input {
+            width: 100%;
+            padding: 4px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 25%;
+            padding: 10px;
+            background: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Background Video Section -->
+    <div class="video-container">
+        <video autoplay muted loop id="bg-video">
+            <source src="{{ url_for('static', filename='videos/WhatsApp Video 2025-03-23 at 12.34.53_181b24c7.mp4') }}" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video>
+    </div>
+
+    <div class="content">
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='images/WhatsApp Image 2025-03-23 at 12.27.58_1df54e86.jpg') }}" class="logo">
+            <h1>EVENT 360 SUITE</h1>
+        </div>
+
+        {% if 'user_id' in session %}
+        <a href="{{ url_for('demo') }}" class="login-btn">Go to Dashboard</a>
+        <a href="{{ url_for('logout') }}" class="login-btn">Logout</a>
+        {% else %}
+        <a href="{{ url_for('login') }}" class="login-btn">Login</a>
+        {% endif %}
+    </div>
+
+    <!-- Notifications Section -->
+    <div class="notifications">
+        <h3>Notifications</h3>
+        <marquee direction="up" scrollamount="2">
+            <p>New Hackathon Event on March 15</p>
+            <p>Workshop on AI & ML - Register Now</p>
+            <p>Guest Speaker Session on Cybersecurity</p>
+        </marquee>
+    </div>
+
+    <!-- Chat with Us Section -->
+    <div class="chat-container">
+        <h3>Chat with Us</h3>
+        <div id="chat-window" class="chat-window">
+            <p><strong>Bot:</strong> Hi! Ask me anything about the event.</p>
+        </div>
+        <input type="text" id="chat-input" placeholder="Type your question..." onkeypress="handleKeyPress(event)">
+        <button onclick="askQuestion()">Send</button>
+    </div>
+
+    <!-- Linking Chatbot JavaScript -->
+    <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+</body>
+
+</html>
